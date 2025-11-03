@@ -1,48 +1,57 @@
 "use client";
 import { useState } from "react";
 import parser from "@/helpers/parser";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { toast } from "sonner";
+import PasteUrl from "@/components/views/PasteUrl";
+import { Card } from "@/components/ui/card";
 
 export default function Home() {
-  const [link, setLink] = useState<string>("");
+  const [url, setUrl] = useState<string>("");
   const [decoded, setDecoded] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
   async function handleDecode() {
-    parser(link).then((result) => {
-      setDecoded(result);
-    });
+    let result;
+    try {
+      result = await parser(url);
+    } catch (error) {
+      toast.error("" + error);
+      return;
+    }
+    setDecoded(result);
   }
 
   return (
-    <div className="font-sans flex flex-col items-center justify-items-center min-h-screen p-8 pb-20 sm:p-20">
-      <label htmlFor="link" className="mb-2">
-        Enter the Google OTP migration link
-      </label>
-      <input
-        id="link"
-        type="text"
-        value={link}
-        onChange={(e) => setLink(e.target.value)}
-        className="bg-white text-black p-2 rounded w-full max-w-md"
-      />
-      <button
-        onClick={handleDecode}
-        className="bg-white text-black mt-3 px-4 py-2 rounded hover:bg-gray-200"
-      >
-        Degoogle
-      </button>
+    <div className="flex flex-col items-center justify-center py-6 bg-muted min-h-screen">
+      <Card className="w-full max-w-xl min-h-96 p-7">
+        <Tabs defaultValue="url">
+          <TabsList className="mb-3">
+            <TabsTrigger value="upload">Upload QR Code</TabsTrigger>
+            <TabsTrigger value="url">Paste URL</TabsTrigger>
+            <TabsTrigger value="scan">Scan QR Code</TabsTrigger>
+          </TabsList>
 
-      {error && (
-        <div className="text-red-500 mt-4 max-w-md">
-          <strong>Error:</strong> {error}
-        </div>
-      )}
+          <TabsContent value="url">
+            <PasteUrl url={url} setUrl={setUrl} handleDecode={handleDecode} />
+          </TabsContent>
+          <TabsContent value="upload">
+            <p>Coming soon</p>
+          </TabsContent>
+          <TabsContent value="scan">
+            <p>Coming soon</p>
+          </TabsContent>
+        </Tabs>
 
-      {decoded && (
-        <pre className="text-left mt-5 bg-gray-900 text-white p-4 rounded w-full max-w-md overflow-x-auto">
-          {JSON.stringify(decoded, null, 2)}
-        </pre>
-      )}
+        {decoded && (
+          <pre className="text-left w-full mt-5 bg-muted text-primary p-4 rounded overflow-x-auto">
+            {JSON.stringify(decoded, null, 2)}
+          </pre>
+        )}
+      </Card>
     </div>
   );
 }
