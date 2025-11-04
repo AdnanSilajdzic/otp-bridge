@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
 import PasteUrl from "@/components/views/PasteUrl";
 import { Card } from "@/components/ui/card";
+import Output from "@/components/output/Output";
 
 export default function Home() {
   const [url, setUrl] = useState<string>("");
@@ -22,11 +23,20 @@ export default function Home() {
       toast.error("" + error);
       return;
     }
+    if (result) {
+      toast.success("2FA Codes successfully degoogled.");
+    }
     setDecoded(result);
   }
 
   return (
-    <div className="flex flex-col items-center justify-center py-6 bg-muted min-h-screen">
+    <div className="flex flex-col items-center justify-center py-6 px-3 bg-muted min-h-screen">
+      <h1 className="text-3xl mb-6">Degoogle your 2FA codes</h1>
+      <h3 className="w-full max-w-2xl mb-6 text-center">
+        Upload an image of your google authenticator migration qr code or paste
+        the url. For each totp code, a qr code will be generated which can be
+        scanned by any 2FA app!
+      </h3>
       <Card className="w-full max-w-xl min-h-96 p-7">
         <Tabs defaultValue="url">
           <TabsList className="mb-3">
@@ -45,12 +55,13 @@ export default function Home() {
             <p>Coming soon</p>
           </TabsContent>
         </Tabs>
-
         {decoded && (
-          <pre className="text-left w-full mt-5 bg-muted text-primary p-4 rounded overflow-x-auto">
-            {JSON.stringify(decoded, null, 2)}
-          </pre>
+          <p className="text-green-600 -mt-3 text-center">
+            URL parsed successfully!
+          </p>
         )}
+
+        {decoded && <Output decoded={decoded} />}
       </Card>
     </div>
   );
