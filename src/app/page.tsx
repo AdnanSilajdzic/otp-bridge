@@ -10,6 +10,7 @@ import PasteUrl from "@/components/views/PasteUrl";
 import { Card } from "@/components/ui/card";
 import Output from "@/components/output/Output";
 import UploadQrCode from "@/components/views/UploadQrCode";
+import { ArrowLeftIcon } from "lucide-react";
 
 export default function Home() {
   const [url, setUrl] = useState<string>("");
@@ -31,38 +32,54 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center pb-6 px-3 bg-muted min-h-screen">
-      <h1 className="text-3xl mb-6 -mt-12">Degoogle your 2FA codes</h1>
+    <div className="flex flex-col items-center justify-start py-6 px-3 bg-muted min-h-screen">
+      <h1 className="text-3xl mb-6 ">Degoogle your 2FA codes</h1>
       <h3 className="w-full max-w-2xl mb-6 text-center">
         Upload an image of your google authenticator migration qr code or paste
         the url. For each totp code, a qr code will be generated which can be
         scanned by any 2FA app!
       </h3>
       <Card className="w-full max-w-xl min-h-96 p-7">
-        <Tabs defaultValue="scan">
-          <TabsList className="mb-3">
-            <TabsTrigger value="scan">Scan QR Code</TabsTrigger>
-            <TabsTrigger value="url">Paste URL</TabsTrigger>
-          </TabsList>
+        {!decoded ? (
+          <Tabs defaultValue="scan">
+            <TabsList className="mb-3">
+              <TabsTrigger value="scan">Scan QR Code</TabsTrigger>
+              <TabsTrigger value="url">Paste URL</TabsTrigger>
+            </TabsList>
 
-          <TabsContent value="url">
-            <PasteUrl url={url} setUrl={setUrl} handleDecode={handleDecode} />
-          </TabsContent>
-          <TabsContent value="scan">
-            <UploadQrCode
-              url={url}
-              setUrl={setUrl}
-              handleDecode={handleDecode}
-            />
-          </TabsContent>
-        </Tabs>
-        {decoded && (
-          <p className="text-green-600 -mt-3 text-center">
-            URL parsed successfully!
-          </p>
+            <TabsContent value="url">
+              <PasteUrl url={url} setUrl={setUrl} handleDecode={handleDecode} />
+            </TabsContent>
+            <TabsContent value="scan">
+              <UploadQrCode
+                url={url}
+                setUrl={setUrl}
+                handleDecode={handleDecode}
+              />
+            </TabsContent>
+          </Tabs>
+        ) : (
+          <>
+            {decoded && (
+              <div className="flex flex-col w-full">
+                <Button
+                  onClick={() => {
+                    setDecoded(null);
+                  }}
+                  variant={"outline"}
+                  className="w-24"
+                >
+                  <ArrowLeftIcon />
+                  Back
+                </Button>
+                <p className="text-green-600 mt-1 text-center">
+                  URL parsed successfully!
+                </p>
+              </div>
+            )}
+            {decoded && <Output decoded={decoded} />}
+          </>
         )}
-
-        {decoded && <Output decoded={decoded} />}
       </Card>
     </div>
   );

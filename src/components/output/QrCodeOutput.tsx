@@ -66,6 +66,9 @@ const QrCodeOutput = (props: propsTypes) => {
       </div>
 
       <p className="text-center font-semibold">
+        Secret: {props.decoded[currentIndex].secret}
+      </p>
+      <p className="text-center font-semibold">
         {props.decoded[currentIndex].issuer}
       </p>
       <p className="text-center font-semibold">
