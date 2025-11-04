@@ -11,8 +11,8 @@ type propsTypes = {
 const QrCodeOutput = (props: propsTypes) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  function generateUrl(index: number) {
-    return `otpauth://totp/${props.decoded[index].issuer}:${props.decoded[index].name}?secret=${props.decoded[index].secret}&issuer=${props.decoded[index].issuer}&algorithm=${props.decoded[index].algorithm}`;
+  function generateUrl(code: decodedJson) {
+    return `otpauth://totp/${code.issuer}:${code.name}?secret=${code.secret}&issuer=${code.issuer}&algorithm=${code.algorithm}`;
   }
 
   return (
@@ -60,10 +60,17 @@ const QrCodeOutput = (props: propsTypes) => {
       >
         <QRCode
           style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-          value={generateUrl(currentIndex)}
+          value={generateUrl(props.decoded[currentIndex])}
           viewBox={`0 0 256 256`}
         />
       </div>
+
+      <p className="text-center font-semibold">
+        {props.decoded[currentIndex].issuer}
+      </p>
+      <p className="text-center font-semibold">
+        {props.decoded[currentIndex].name}
+      </p>
     </div>
   );
 };
