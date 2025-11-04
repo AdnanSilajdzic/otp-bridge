@@ -40,9 +40,7 @@ const parser = async (sourceUrl) => {
   }
 
   if (sourceUrl.indexOf("otpauth-migration://offline") !== 0) {
-    throw new Error(
-      "source url must be begun with otpauth-migration://offline"
-    );
+    throw new Error("source url must begin with otpauth-migration://offline");
   }
 
   const sourceData = new URL(sourceUrl).searchParams.get("data");
