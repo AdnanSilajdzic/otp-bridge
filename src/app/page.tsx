@@ -10,7 +10,7 @@ import PasteUrl from "@/components/views/PasteUrl";
 import { Card } from "@/components/ui/card";
 import Output from "@/components/output/Output";
 import UploadQrCode from "@/components/views/UploadQrCode";
-import { ArrowLeftIcon } from "lucide-react";
+import { ArrowLeftIcon, InfoIcon } from "lucide-react";
 
 export default function Home() {
   const [url, setUrl] = useState<string>("");
@@ -33,8 +33,10 @@ export default function Home() {
 
   return (
     <div className="flex  flex-col items-center justify-center py-6 px-3 bg-muted min-h-screen">
-      <h1 className="text-3xl mb-6 ">Degoogle your 2FA codes</h1>
-      <h3 className="w-full max-w-2xl mb-6 text-center">
+      <h1 className="sm:text-4xl text-3xl mb-6 font-bold text-center">
+        Degoogle your 2FA codes
+      </h1>
+      <h3 className="w-full max-w-2xl mb-6 text-center ">
         Upload an image of your google authenticator migration qr code or paste
         the url. For each totp code, a qr code will be generated which can be
         scanned by any 2FA app!
@@ -82,12 +84,19 @@ export default function Home() {
         )}
       </Card>
 
-      <div className="mt-3 items-end flex">
+      <div className="mt-3 flex justify-center gap-14 w-full max-w-xl">
+        <a
+          href="/about"
+          className="flex items-center gap-2 text-muted-foreground transition-all duration-300 hover:text-foreground"
+        >
+          <InfoIcon className="w-4 h-4" />
+          About
+        </a>
         <a href="https://github.com/AdnanSilajdzic/otp-bridge" target="_blank">
           <img
             src="/github.svg"
             alt="github repository"
-            className="w-7 h-7 opacity-75 cursor-pointer"
+            className="w-7 h-7 opacity-70 hover:opacity-100 transition-all duration-300 cursor-pointer"
           />
         </a>
       </div>
