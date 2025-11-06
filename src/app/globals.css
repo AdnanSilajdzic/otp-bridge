@@ -143,3 +143,8 @@
 #html5qr-code-full-region__scan_region {
   min-height: 0px !important;
 }
+
+#html5qr-code-full-region__dashboard_section div[style*="border: 6px dashed"] {
+  margin: 0 !important;
+  width: 100% !important;
+}

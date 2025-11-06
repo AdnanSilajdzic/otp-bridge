@@ -32,7 +32,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-start py-6 px-3 bg-muted min-h-screen">
+    <div className="flex  flex-col items-center justify-center py-6 px-3 bg-muted min-h-screen">
       <h1 className="text-3xl mb-6 ">Degoogle your 2FA codes</h1>
       <h3 className="w-full max-w-2xl mb-6 text-center">
         Upload an image of your google authenticator migration qr code or paste
@@ -81,6 +81,16 @@ export default function Home() {
           </>
         )}
       </Card>
+
+      <div className="mt-3 items-end flex">
+        <a href="https://github.com/AdnanSilajdzic/otp-bridge" target="_blank">
+          <img
+            src="/github.svg"
+            alt="github repository"
+            className="w-7 h-7 opacity-75 cursor-pointer"
+          />
+        </a>
+      </div>
     </div>
   );
 }
