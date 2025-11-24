@@ -38,6 +38,9 @@ npm install
 npm run dev
 ```
 
-That's it! No environment variables or additional setup required. The application will be available at http://localhost:3000.
+The application will be available at http://localhost:3000. That's it!
+
+The counter component will not work by default since it requires cloudflare KV credentials. You can read about how to get started with [cloudflare kv here](https://developers.cloudflare.com/kv/).
+You can check which credentials you need by checking .env.example.
 
 The application runs entirely in the browser and doesn't require any backend services or API keys.
