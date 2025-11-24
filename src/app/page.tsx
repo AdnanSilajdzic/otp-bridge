@@ -11,11 +11,26 @@ import { Card } from "@/components/ui/card";
 import Output from "@/components/output/Output";
 import UploadQrCode from "@/components/views/UploadQrCode";
 import { ArrowLeftIcon, InfoIcon } from "lucide-react";
+import axios from "axios";
+import Counter from "@/components/Counter";
 
 export default function Home() {
   const [url, setUrl] = useState<string>("");
   const [decoded, setDecoded] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+
+  async function updateCounter(number: number) {
+    axios
+      .post("/api/update-counter", {
+        counter: number,
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Failed to update global counter");
+      });
+  }
 
   async function handleDecode(urlString = null as string | null) {
     let result;
@@ -27,6 +42,7 @@ export default function Home() {
     }
     if (result) {
       toast.success("2FA Codes successfully degoogled.");
+      updateCounter(result.length);
     }
     setDecoded(result);
   }
@@ -83,6 +99,8 @@ export default function Home() {
           </>
         )}
       </Card>
+      <div className="mt-6"></div>
+      <Counter />
 
       <div className="mt-3 flex justify-center gap-14 w-full max-w-xl">
         <a
