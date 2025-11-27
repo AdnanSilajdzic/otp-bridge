@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "./ui/card";
 import axios from "axios";
+import { Skeleton } from "./ui/skeleton";
 
 const Counter = () => {
   const [counter, setCounter] = useState(null);
@@ -21,12 +22,17 @@ const Counter = () => {
   }, []);
 
   return (
-    Number.isInteger(counter) && (
-      <Card className="w-full max-w-xl  p-7">
-        <h1 className="text-center font-bold text-3xl">{counter}</h1>
-        <p className="text-center text-lg">OTP codes degoogled so far</p>
-      </Card>
-    )
+    <>
+      {" "}
+      {!counter ? (
+        <Skeleton className="w-full z-50 max-w-xl h-[146px]" />
+      ) : (
+        <Card className="w-full max-w-xl  p-7">
+          <h1 className="text-center font-bold text-3xl">{counter}</h1>
+          <p className="text-center text-lg">OTP codes degoogled so far</p>
+        </Card>
+      )}
+    </>
   );
 };
 
