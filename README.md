@@ -1,6 +1,6 @@
 # OTP BRIDGE - DEGOOGLE YOUR 2FA CODES
 
-A web application that helps you extract your 2FA codes from Google Authenticator and migrate them to any other authenticator app.
+A web application that helps you extract the secret key to your 2FA codes from Google Authenticator and migrate them to any other authenticator app.
 
 Visit the live application at [otpbridge.org](https://otpbridge.org)
 
