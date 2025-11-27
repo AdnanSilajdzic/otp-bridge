@@ -1,5 +1,19 @@
 import React from "react";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About OTP Bridge - Privacy-Focused 2FA Migration Tool",
+  description:
+    "Learn about OTP Bridge's mission to help users liberate their 2FA codes from proprietary formats. Open source, privacy-focused, and works entirely in your browser.",
+  keywords:
+    "otp bridge about, 2fa migration privacy, open source authenticator, degoogling security",
+  openGraph: {
+    title: "About OTP Bridge - Privacy-Focused 2FA Migration",
+    description:
+      "Learn about our mission to help users liberate their 2FA codes from proprietary formats.",
+  },
+};
 import {
   Card,
   CardContent,
@@ -18,22 +32,16 @@ import {
   Users,
   ArrowLeft,
 } from "lucide-react";
+import { Breadcrumb } from "@/components/Breadcrumb";
 
 export default function AboutPage() {
   return (
     <div className="flex flex-col items-center justify-start py-6 px-3 bg-muted min-h-screen">
       <div className="w-full max-w-4xl space-y-8">
         <div className="flex items-center justify-between w-full">
-          <Link href="/">
-            <Button
-              variant="outline"
-              size="sm"
-              className="flex items-center gap-2"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
-            </Button>
-          </Link>
+          <Breadcrumb
+            items={[{ name: "Home", href: "/" }, { name: "About" }]}
+          />
         </div>
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold tracking-tight">

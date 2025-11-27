@@ -50,12 +50,14 @@ export default function Home() {
   return (
     <div className="flex  flex-col items-center justify-center py-6 px-3 bg-muted min-h-screen">
       <h1 className="sm:text-4xl text-3xl mb-6 font-bold text-center">
-        Degoogle your 2FA codes
+        Transfer Google Authenticator to Any App
       </h1>
       <h3 className="w-full max-w-2xl mb-6 text-center ">
-        Upload an image of your google authenticator migration qr code or paste
-        the url. For each totp code, a qr code will be generated which can be
-        scanned by any 2FA app!
+        Export your 2FA codes from Google Authenticator in seconds. Upload
+        migration QR code or paste the URL, and we'll generate individual QR
+        codes that work with Authy, Aegis, 2FAS, or any other 2FA app and
+        password manager. No app installation required - works entirely in your
+        browser.
       </h3>
       <Card className="w-full max-w-xl min-h-96 p-7">
         {!decoded ? (
@@ -102,7 +104,13 @@ export default function Home() {
       <div className="mt-6"></div>
       <Counter />
 
-      <div className="mt-3 flex justify-center gap-14 w-full max-w-xl">
+      <div className="mt-3 flex justify-center gap-6 w-full max-w-xl flex-wrap">
+        <a
+          href="/guide"
+          className="flex items-center gap-2 text-muted-foreground transition-all duration-300 hover:text-foreground"
+        >
+          Guide
+        </a>
         <a
           href="/about"
           className="flex items-center gap-2 text-muted-foreground transition-all duration-300 hover:text-foreground"
@@ -113,7 +121,7 @@ export default function Home() {
         <a href="https://github.com/AdnanSilajdzic/otp-bridge" target="_blank">
           <img
             src="/github.svg"
-            alt="github repository"
+            alt="View OTP Bridge source code on GitHub"
             className="w-7 h-7 opacity-70 hover:opacity-100 transition-all duration-300 cursor-pointer"
           />
         </a>
