@@ -148,3 +148,8 @@
   margin: 0 !important;
   width: 100% !important;
 }
+
+#qr-canvas-visible {
+  height: 400px !important;
+  object-fit: cover;
+}
