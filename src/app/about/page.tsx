@@ -33,6 +33,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { Navigation } from "@/components/Navigation";
 
 export default function AboutPage() {
   return (
@@ -128,7 +129,7 @@ export default function AboutPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-start gap-4">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full border border-border text-xs font-medium mt-1">
+              <div className="flex items-center aspect-square justify-center w-6 h-6 rounded-full border border-border text-xs font-medium mt-1">
                 1
               </div>
               <div>
@@ -142,7 +143,7 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full border border-border text-xs font-medium mt-1">
+              <div className="flex items-center aspect-square justify-center w-6 h-6 rounded-full border border-border text-xs font-medium mt-1">
                 2
               </div>
               <div>
@@ -155,7 +156,7 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="flex items-start gap-4">
-              <div className="flex items-center justify-center w-6 h-6 rounded-full border border-border text-xs font-medium mt-1">
+              <div className="flex items-center aspect-square justify-center w-6 h-6 rounded-full border border-border text-xs font-medium mt-1">
                 3
               </div>
               <div>
@@ -201,6 +202,9 @@ export default function AboutPage() {
             </p>
           </CardContent>
         </Card>
+        <div className="pt-6 border-t border-border w-full">
+          <Navigation />
+        </div>
       </div>
     </div>
   );
