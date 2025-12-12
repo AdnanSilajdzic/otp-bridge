@@ -10,9 +10,11 @@ import PasteUrl from "@/components/views/PasteUrl";
 import { Card } from "@/components/ui/card";
 import Output from "@/components/output/Output";
 import UploadQrCode from "@/components/views/UploadQrCode";
-import { ArrowLeftIcon, InfoIcon } from "lucide-react";
+import { ArrowLeftIcon, QrCode } from "lucide-react";
 import axios from "axios";
 import Counter from "@/components/Counter";
+import { ModeToggle } from "@/components/ModeToggle";
+import { Navigation } from "@/components/Navigation";
 
 export default function Home() {
   const [url, setUrl] = useState<string>("");
@@ -48,24 +50,31 @@ export default function Home() {
   }
 
   return (
-    <div className="flex  flex-col items-center justify-center py-6 px-3 bg-muted min-h-screen">
-      <h1 className="sm:text-4xl text-3xl mb-6 font-bold text-center">
-        Transfer Google Authenticator to Any App
+    <div className="flex flex-col items-center justify-center py-4 px-3 bg-muted min-h-screen">
+      <h1 className="text-2xl sm:text-3xl mb-2 font-bold text-center">
+        Transfer Google Authenticator Codes to Any App
       </h1>
-      <h3 className="w-full max-w-2xl mb-6 text-center ">
-        Export your 2FA codes from Google Authenticator in seconds. Upload
-        migration QR code or paste the URL, and we'll generate individual QR
-        codes that work with Authy, Aegis, 2FAS, or any other 2FA app and
-        password manager. No app installation required - works entirely in your
-        browser.
-      </h3>
-      <Card className="w-full max-w-xl min-h-96 p-7">
+
+      <Card className="w-full max-w-2xl mb-3 p-4 mt-4">
+        <div className="flex items-center justify-center gap-3">
+          <QrCode className="min-w-7 min-h-7 text-primary" />
+          <p className="text-center text-sm">
+            Input your Google Authenticator QR code to convert it into standard
+            QR codes that can be scanned with any 2FA app
+          </p>
+        </div>
+      </Card>
+
+      <Card className="w-full max-w-2xl min-h-96 p-5">
         {!decoded ? (
           <Tabs defaultValue="scan">
-            <TabsList className="mb-3">
-              <TabsTrigger value="scan">Scan QR Code</TabsTrigger>
-              <TabsTrigger value="url">Paste URL</TabsTrigger>
-            </TabsList>
+            <div className="flex justify-between">
+              <TabsList className="mb-3">
+                <TabsTrigger value="scan">Scan QR Code</TabsTrigger>
+                <TabsTrigger value="url">Paste URL</TabsTrigger>
+              </TabsList>
+              <ModeToggle />
+            </div>
 
             <TabsContent value="url">
               <PasteUrl url={url} setUrl={setUrl} handleDecode={handleDecode} />
@@ -82,16 +91,20 @@ export default function Home() {
           <>
             {decoded && (
               <div className="flex flex-col w-full">
-                <Button
-                  onClick={() => {
-                    setDecoded(null);
-                  }}
-                  variant={"outline"}
-                  className="w-24"
-                >
-                  <ArrowLeftIcon />
-                  Back
-                </Button>
+                <div className="flex justify-between">
+                  <Button
+                    onClick={() => {
+                      setDecoded(null);
+                    }}
+                    variant={"outline"}
+                    className="w-24"
+                  >
+                    <ArrowLeftIcon />
+                    Back
+                  </Button>
+
+                  <ModeToggle />
+                </div>
                 <p className="text-green-600 mt-1 text-center">
                   URL parsed successfully!
                 </p>
@@ -101,30 +114,11 @@ export default function Home() {
           </>
         )}
       </Card>
-      <div className="mt-6"></div>
+      <div className="mt-3"></div>
       <Counter />
 
-      <div className="mt-3 flex justify-center gap-6 w-full max-w-xl flex-wrap">
-        <a
-          href="/guide"
-          className="flex items-center gap-2 text-muted-foreground transition-all duration-300 hover:text-foreground"
-        >
-          Guide
-        </a>
-        <a
-          href="/about"
-          className="flex items-center gap-2 text-muted-foreground transition-all duration-300 hover:text-foreground"
-        >
-          <InfoIcon className="w-4 h-4" />
-          About
-        </a>
-        <a href="https://github.com/AdnanSilajdzic/otp-bridge" target="_blank">
-          <img
-            src="/github.svg"
-            alt="View OTP Bridge source code on GitHub"
-            className="w-7 h-7 opacity-70 hover:opacity-100 transition-all duration-300 cursor-pointer"
-          />
-        </a>
+      <div className="mt-3">
+        <Navigation />
       </div>
     </div>
   );

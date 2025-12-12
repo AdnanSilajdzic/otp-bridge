@@ -57,6 +57,7 @@ const QrCodeOutput = (props: propsTypes) => {
           margin: "0 auto",
           width: "70%",
         }}
+        className="dark:p-3 dark:bg-white"
       >
         <QRCode
           style={{ height: "auto", maxWidth: "100%", width: "100%" }}

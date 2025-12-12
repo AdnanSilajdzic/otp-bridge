@@ -6,6 +6,7 @@ import { Skeleton } from "./ui/skeleton";
 
 const Counter = () => {
   const [counter, setCounter] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   async function getCounterNumber() {
     let response;
@@ -18,19 +19,24 @@ const Counter = () => {
   }
 
   useEffect(() => {
-    getCounterNumber().then((response) => setCounter(response?.data.counter));
+    getCounterNumber()
+      .then((response) => setCounter(response?.data.counter))
+      .catch((error) => setIsLoading(false))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
     <>
       {" "}
-      {!counter ? (
-        <Skeleton className="w-full z-50 max-w-xl h-[146px]" />
+      {isLoading ? (
+        <Skeleton className="w-full z-50 max-w-2xl h-[146px]" />
       ) : (
-        <Card className="w-full max-w-xl  p-7">
-          <h1 className="text-center font-bold text-3xl">{counter}</h1>
-          <p className="text-center text-lg">OTP codes degoogled so far</p>
-        </Card>
+        counter && (
+          <Card className="w-full max-w-2xl  p-7">
+            <h1 className="text-center font-bold text-3xl">{counter}</h1>
+            <p className="text-center text-lg">OTP codes degoogled so far</p>
+          </Card>
+        )
       )}
     </>
   );

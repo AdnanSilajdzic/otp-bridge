@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Breadcrumb } from "@/components/Breadcrumb";
+import { Navigation } from "@/components/Navigation";
 
 export const metadata: Metadata = {
   title: "Complete Guide to 2FA Migration | OTP Bridge",
@@ -95,7 +96,10 @@ export default function GuidePage() {
             <Card key={index}>
               <CardHeader>
                 <div className="flex items-center gap-4">
-                  <Badge variant="outline" className="text-lg px-3 py-1">
+                  <Badge
+                    variant="outline"
+                    className="text-lg px-3 py-1 aspect-square"
+                  >
                     {step.number}
                   </Badge>
                   <div>
@@ -136,6 +140,9 @@ export default function GuidePage() {
               </Card>
             ))}
           </div>
+        </div>
+        <div className="pt-6 border-t border-border w-full">
+          <Navigation />
         </div>
       </div>
     </div>
