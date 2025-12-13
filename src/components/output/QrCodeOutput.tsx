@@ -12,7 +12,15 @@ const QrCodeOutput = (props: propsTypes) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   function generateUrl(code: decodedJson) {
-    return `otpauth://totp/${code.issuer}:${code.name}?secret=${code.secret}&issuer=${code.issuer}&algorithm=${code.algorithm}`;
+    return (
+      `otpauth://totp/${encodeURIComponent(code.issuer)}:${encodeURIComponent(
+        code.name
+      )}?` +
+      `secret=${code.secret}` +
+      `&issuer=${encodeURIComponent(code.issuer)}` +
+      `&algorithm=${code.algorithm.toLocaleUpperCase() ?? "SHA1"}` +
+      `&digits=${code.digits ?? "6"}`
+    );
   }
 
   return (
