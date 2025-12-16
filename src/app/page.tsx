@@ -38,15 +38,16 @@ export default function Home() {
     let result;
     try {
       result = await parser(urlString ?? url);
+      if (result) {
+        setError(null);
+        toast.success("2FA Codes successfully degoogled.");
+        updateCounter(result.length);
+      }
+      setDecoded(result);
     } catch (error) {
-      toast.error("" + error);
+      setError("" + error);
       return;
     }
-    if (result) {
-      toast.success("2FA Codes successfully degoogled.");
-      updateCounter(result.length);
-    }
-    setDecoded(result);
   }
 
   return (
@@ -75,6 +76,8 @@ export default function Home() {
               </TabsList>
               <ModeToggle />
             </div>
+
+            <p className="text-red-700 text-center">{error}</p>
 
             <TabsContent value="url">
               <PasteUrl url={url} setUrl={setUrl} handleDecode={handleDecode} />
