@@ -23,6 +23,9 @@ const OTP_TYPE = {
   2: "totp",
 };
 
+// Cache the protobuf root globally
+let cachedProtobufRoot = null;
+
 const protobufPromise = (protoFilePath) => {
   return new Promise((resolve, reject) => {
     protobuf.load("/otpauth-migration.proto", (err, root) => {
@@ -32,6 +35,16 @@ const protobufPromise = (protoFilePath) => {
       return resolve(root);
     });
   });
+};
+
+// Function to preload the protobuf schema
+export const preloadProtobuf = async () => {
+  if (!cachedProtobufRoot) {
+    cachedProtobufRoot = await protobufPromise(
+      path.join(__dirname, "otpauth-migration.proto")
+    );
+  }
+  return cachedProtobufRoot;
 };
 
 const parser = async (sourceUrl) => {
@@ -49,9 +62,15 @@ const parser = async (sourceUrl) => {
     throw new Error("source url doesn't contain otpauth data");
   }
 
-  const protobufRoot = await protobufPromise(
+  // Use cached protobuf root if available, otherwise load it
+  const protobufRoot = cachedProtobufRoot || await protobufPromise(
     path.join(__dirname, "otpauth-migration.proto")
   );
+
+  // Cache the root for future use
+  if (!cachedProtobufRoot) {
+    cachedProtobufRoot = protobufRoot;
+  }
 
   const migrationPayload = protobufRoot.lookupType("MigrationPayload");
   const decodedOtpPayload = migrationPayload.decode(
