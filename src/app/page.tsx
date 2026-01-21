@@ -1,6 +1,6 @@
 "use client";
-import { useState } from "react";
-import parser from "@/helpers/parser";
+import { useState, useEffect } from "react";
+import parser, { preloadProtobuf } from "@/helpers/parser";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,13 @@ export default function Home() {
   const [url, setUrl] = useState<string>("");
   const [decoded, setDecoded] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Preload the protobuf schema when the component mounts
+  useEffect(() => {
+    preloadProtobuf().catch((err) => {
+      console.error("Failed to preload protobuf schema:", err);
+    });
+  }, []);
 
   async function updateCounter(number: number) {
     axios
