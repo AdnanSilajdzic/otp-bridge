@@ -5,7 +5,7 @@ import axios from "axios";
 import { Skeleton } from "./ui/skeleton";
 
 const Counter = () => {
-  const [counter, setCounter] = useState(null);
+  const [counter, setCounter] = useState<null | Number>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   async function getCounterNumber() {
@@ -33,7 +33,9 @@ const Counter = () => {
       ) : (
         counter && (
           <Card className="w-full max-w-2xl  p-7">
-            <h1 className="text-center font-bold text-3xl">{counter}</h1>
+            <h1 className="text-center font-bold text-3xl">
+              {counter.toLocaleString("en-US")}
+            </h1>
             <p className="text-center text-lg">OTP codes degoogled so far</p>
           </Card>
         )
