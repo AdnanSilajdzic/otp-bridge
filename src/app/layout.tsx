@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { GitHubBanner } from "@/components/GitHubBanner";
 
 const structuredData = {
   "@context": "https://schema.org",
@@ -92,7 +93,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="OTP Bridge" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-muted`}
       >
         <ThemeProvider
           attribute="class"
@@ -100,6 +101,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <GitHubBanner />
           <Toaster position="top-right" />
           {children}
         </ThemeProvider>
