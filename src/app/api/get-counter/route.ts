@@ -1,16 +1,16 @@
-import axios from "axios";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 
 export async function GET() {
-  let value = 0;
-
-  let response = await axios.get(
-    `https://api.cloudflare.com/client/v4/accounts/${process.env.ACCOUNT_ID}/storage/kv/namespaces/${process.env.KV_ID}/values/${process.env.KV_KEY}`,
-    {
-      headers: {
-        Authorization: `Bearer ${process.env.CLOUDFLARE_TOKEN}`,
-      },
+  const { env } = await getCloudflareContext();
+  const raw = await env.COUNTER_KV.get("counter");
+  let counter = 0;
+  if (raw) {
+    try {
+      const parsed = JSON.parse(raw);
+      counter = Number(parsed.value ?? parsed);
+    } catch {
+      counter = Number(raw);
     }
-  );
-  value = response.data.value;
-  return Response.json({ counter: Number(value) });
+  }
+  return Response.json({ counter: counter || 0 });
 }

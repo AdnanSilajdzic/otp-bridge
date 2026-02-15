@@ -1,14 +1,11 @@
-import axios from "axios";
-import { headers } from "next/headers";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
-    // get counter from request
     const body = (await request.json()) as { counter: number };
     const { counter } = body;
 
-    // validation
     if (
       typeof counter !== "number" ||
       !Number.isInteger(counter) ||
@@ -21,36 +18,24 @@ export async function POST(request: Request) {
       );
     }
 
-    // get current value of counter
-    let response = await axios.get(
-      `https://api.cloudflare.com/client/v4/accounts/${process.env.ACCOUNT_ID}/storage/kv/namespaces/${process.env.KV_ID}/values/${process.env.KV_KEY}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.CLOUDFLARE_TOKEN}`,
-        },
+    const { env } = await getCloudflareContext();
+    const raw = await env.COUNTER_KV.get("counter");
+    let current = 0;
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw);
+        current = Number(parsed.value ?? parsed);
+      } catch {
+        current = Number(raw);
       }
-    );
-    let value = response.data.value;
-
-    // update value
-    let newValue = Number(value) + counter;
-    let updateResponse = await axios.put(
-      `https://api.cloudflare.com/client/v4/accounts/${process.env.ACCOUNT_ID}/storage/kv/namespaces/${process.env.KV_ID}/values/${process.env.KV_KEY}`,
-      { value: newValue },
-      { headers: { Authorization: `Bearer ${process.env.CLOUDFLARE_TOKEN}` } }
-    );
-
-    if (updateResponse.status === 200) {
-      return NextResponse.json(
-        { success: true, counter: newValue },
-        { status: 200 }
-      );
-    } else {
-      return NextResponse.json(
-        { success: false, counter: value || 0 },
-        { status: 500 }
-      );
     }
+    const newValue = (current || 0) + counter;
+    await env.COUNTER_KV.put("counter", String(newValue));
+
+    return NextResponse.json(
+      { success: true, counter: newValue },
+      { status: 200 }
+    );
   } catch {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
