@@ -28,7 +28,7 @@ const nextConfig: NextConfig = {
               style-src 'self' 'unsafe-inline';
               img-src 'self' data: blob:;
               font-src 'self';
-              connect-src 'self' https://api.cloudflare.com;
+              connect-src 'self';
               frame-src 'none';
               frame-ancestors 'none';
               object-src 'none';
