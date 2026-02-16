@@ -44,6 +44,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  icons: { icon: "/favicon.svg" },
   title:
     "OTP Bridge - Transfer Google Authenticator to Any App | 2FA Migration Tool",
   description:
