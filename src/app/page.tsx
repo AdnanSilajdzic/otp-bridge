@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import parser, { preloadProtobuf } from "@/helpers/parser";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -15,11 +15,13 @@ import axios from "axios";
 import Counter from "@/components/Counter";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Navigation } from "@/components/Navigation";
+import { Turnstile } from "nextjs-turnstile";
 
 export default function Home() {
   const [url, setUrl] = useState<string>("");
   const [decoded, setDecoded] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const tokenRef = useRef<string | null>(null);
 
   // Preload the protobuf schema when the component mounts
   useEffect(() => {
@@ -32,6 +34,7 @@ export default function Home() {
     axios
       .post("/api/update-counter", {
         counter: number,
+        token: tokenRef.current,
       })
       .then((response) => {
         console.log(response.data);
@@ -60,7 +63,7 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center py-4 px-3 bg-muted min-h-screen">
       <h1 className="text-2xl sm:text-3xl mb-2 font-bold text-center">
-        Transfer Google Authenticator Codes to Any App
+        OTP Bridge
       </h1>
 
       <Card className="w-full max-w-2xl mb-3 p-4 mt-4">
@@ -96,6 +99,15 @@ export default function Home() {
                 handleDecode={handleDecode}
               />
             </TabsContent>
+            <div className="flex w-full justify-center">
+
+              <Turnstile
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+                onSuccess={(token) => { tokenRef.current = token }}
+                onError={(error) => console.error(error)}
+                onExpire={() => { tokenRef.current = null }}
+              />
+            </div>
           </Tabs>
         ) : (
           <>
