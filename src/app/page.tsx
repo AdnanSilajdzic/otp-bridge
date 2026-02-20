@@ -10,12 +10,13 @@ import PasteUrl from "@/components/views/PasteUrl";
 import { Card } from "@/components/ui/card";
 import Output from "@/components/output/Output";
 import UploadQrCode from "@/components/views/UploadQrCode";
-import { ArrowLeftIcon, QrCode } from "lucide-react";
+import { ArrowLeftIcon, GithubIcon, QrCode, ShieldCheck } from "lucide-react";
 import axios from "axios";
 import Counter from "@/components/Counter";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Navigation } from "@/components/Navigation";
 import { Turnstile } from "nextjs-turnstile";
+import Link from "next/link";
 
 export default function Home() {
   const [url, setUrl] = useState<string>("");
@@ -65,6 +66,25 @@ export default function Home() {
       <h1 className="text-2xl sm:text-3xl mb-2 font-bold text-center">
         OTP Bridge
       </h1>
+
+      <div className="flex gap-2 mt-2 flex-wrap justify-center">
+        <Link
+          href="/about"
+          className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium bg-background hover:bg-muted transition-colors"
+        >
+          <ShieldCheck className="w-3.5 h-3.5" />
+          Privacy Respecting
+        </Link>
+        <a
+          href="https://github.com/AdnanSilajdzic/otp-bridge"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium bg-background hover:bg-muted transition-colors"
+        >
+          <GithubIcon className="w-3.5 h-3.5" />
+          Open Source
+        </a>
+      </div>
 
       <Card className="w-full max-w-2xl mb-3 p-4 mt-4">
         <div className="flex items-center justify-center gap-3">

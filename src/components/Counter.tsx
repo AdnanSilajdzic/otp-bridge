@@ -33,11 +33,11 @@ const Counter = () => {
       {isLoading ? (
         <Skeleton className="w-full z-50 max-w-2xl h-[146px]" />
       ) : (
-        counter !== null && counter > 0 && (
+        (
           <Card className="w-full max-w-2xl  p-7 flex flex-col items-center">
             <div className="flex w-fit justify-center items-center relative">
               <h1 className="text-center font-bold text-3xl">
-                {counter.toLocaleString("en-US")}
+                {counter !== null && counter > 0 ? counter.toLocaleString("en-US") : "1000+"}
               </h1>
               <Link href="/history" className="flex items-center">
                 <ChartLineIcon width={18} className="text-muted-foreground absolute right-0 -mr-6 cursor-pointer hover:text-white transition-all duration-300" />
