@@ -54,8 +54,8 @@ export function ChartLineLabel({ data }: PropsTypes) {
                         data={chartData}
                         margin={{
                             top: 20,
-                            left: 12,
-                            right: 12,
+                            left: 16,
+                            right: 16,
                         }}
                     >
                         <CartesianGrid vertical={false} />
