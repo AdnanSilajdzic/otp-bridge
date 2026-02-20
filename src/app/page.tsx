@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import parser, { preloadProtobuf } from "@/helpers/parser";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -10,16 +10,19 @@ import PasteUrl from "@/components/views/PasteUrl";
 import { Card } from "@/components/ui/card";
 import Output from "@/components/output/Output";
 import UploadQrCode from "@/components/views/UploadQrCode";
-import { ArrowLeftIcon, QrCode } from "lucide-react";
+import { ArrowLeftIcon, GithubIcon, QrCode, ShieldCheck } from "lucide-react";
 import axios from "axios";
 import Counter from "@/components/Counter";
 import { ModeToggle } from "@/components/ModeToggle";
 import { Navigation } from "@/components/Navigation";
+import { Turnstile } from "nextjs-turnstile";
+import Link from "next/link";
 
 export default function Home() {
   const [url, setUrl] = useState<string>("");
   const [decoded, setDecoded] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
+  const tokenRef = useRef<string | null>(null);
 
   // Preload the protobuf schema when the component mounts
   useEffect(() => {
@@ -32,6 +35,7 @@ export default function Home() {
     axios
       .post("/api/update-counter", {
         counter: number,
+        token: tokenRef.current,
       })
       .then((response) => {
         console.log(response.data);
@@ -60,8 +64,27 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-center py-4 px-3 bg-muted min-h-screen">
       <h1 className="text-2xl sm:text-3xl mb-2 font-bold text-center">
-        Transfer Google Authenticator Codes to Any App
+        OTP Bridge
       </h1>
+
+      <div className="flex gap-2 mt-2 flex-wrap justify-center">
+        <Link
+          href="/about"
+          className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium bg-background hover:bg-muted transition-colors"
+        >
+          <ShieldCheck className="w-3.5 h-3.5" />
+          Privacy Respecting
+        </Link>
+        <a
+          href="https://github.com/AdnanSilajdzic/otp-bridge"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium bg-background hover:bg-muted transition-colors"
+        >
+          <GithubIcon className="w-3.5 h-3.5" />
+          Open Source
+        </a>
+      </div>
 
       <Card className="w-full max-w-2xl mb-3 p-4 mt-4">
         <div className="flex items-center justify-center gap-3">
@@ -96,6 +119,15 @@ export default function Home() {
                 handleDecode={handleDecode}
               />
             </TabsContent>
+            <div className="flex w-full justify-center">
+
+              <Turnstile
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+                onSuccess={(token) => { tokenRef.current = token }}
+                onError={(error) => console.error(error)}
+                onExpire={() => { tokenRef.current = null }}
+              />
+            </div>
           </Tabs>
         ) : (
           <>

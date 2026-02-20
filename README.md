@@ -31,16 +31,29 @@ This tool solves that problem by:
 
 ## How to Run Locally
 
-To run this application locally:
+You must have [Git](https://git-scm.com/downloads), [Node.js](https://nodejs.org/) and [npm](https://www.npmjs.com/get-npm) installed.
 
 ```bash
+# download the repo
+git clone https://github.com/AdnanSilajdzic/otp-bridge.git
+# enter the folder it created
+cd otp-bridge
+# copy the .env.example to a .env file
+cp .env.example .env
+# install dependencies
 npm install
+# run
 npm run dev
 ```
 
-The application will be available at http://localhost:3000. That's it!
+The application will be available in your browser at http://localhost:3000. The core functionality (decoding QR codes and extracting 2FA secrets) works fully offline with no configuration needed.
 
-The counter component will not work by default since it requires cloudflare KV credentials. You can read about how to get started with [cloudflare kv here](https://developers.cloudflare.com/kv/).
-You can check which credentials you need by checking .env.example.
+That's it.
 
-The application runs entirely in the browser and doesn't require any backend services or API keys.
+Running locally will never connect to any hosted instance of OTP Bridge. Some features require valid Cloudflare credentials in your `.env` and `wrangler.jsonc` file to function:
+
+- **Counter component** — uses Cloudflare KV to track total migrations
+- **Cloudflare Turnstile** — bot protection on API endpoints
+- **History page** — uses Cloudflare D1 database to display migration stats over time
+
+Without these credentials, the above features will simply not work, but QR code decoding and migration will function perfectly.

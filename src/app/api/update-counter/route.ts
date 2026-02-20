@@ -1,11 +1,19 @@
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { NextResponse } from "next/server";
+import { verifyTurnstile } from "nextjs-turnstile";
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as { counter: number };
-    const { counter } = body;
+    const body = (await request.json()) as { counter: number, token: string };
+    const { counter, token } = body;
 
+    // verify cloudflare turnstile token
+    const isValid = await verifyTurnstile(token);
+    if (!isValid) {
+      return NextResponse.json({ error: "Bots not allowed" }, { status: 403 });
+    }
+
+    // verify the number
     if (
       typeof counter !== "number" ||
       !Number.isInteger(counter) ||
@@ -13,11 +21,12 @@ export async function POST(request: Request) {
       counter > 10
     ) {
       return NextResponse.json(
-        { error: "counter must be an integer greater than 0 and less than 10" },
+        { error: "counter must be an integer between 1 and 10" },
         { status: 400 }
       );
     }
 
+    // get previous count
     const { env } = await getCloudflareContext();
     const raw = await env.COUNTER_KV.get("counter");
     let current = 0;
@@ -29,6 +38,8 @@ export async function POST(request: Request) {
         current = Number(raw);
       }
     }
+
+    // update count 
     const newValue = (current || 0) + counter;
     await env.COUNTER_KV.put("counter", String(newValue));
 
