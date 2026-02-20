@@ -1,0 +1,16 @@
+{
+	"name": "otp-visitor-history",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"deploy": "wrangler deploy",
+		"dev": "wrangler dev --test-scheduled",
+		"start": "wrangler dev --test-scheduled",
+		"cf-typegen": "wrangler types"
+	},
+	"devDependencies": {
+		"@types/node": "^25.3.0",
+		"typescript": "^5.5.2",
+		"wrangler": "^4.66.0"
+	}
+}

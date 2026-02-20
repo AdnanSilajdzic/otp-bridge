@@ -21,6 +21,7 @@
     "axios": "^1.13.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dayjs": "^1.11.19",
     "lucide-react": "^0.552.0",
     "next": "16.1.5",
     "next-themes": "^0.4.6",
@@ -29,6 +30,7 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-qr-code": "^2.0.18",
+    "recharts": "^2.15.4",
     "rfc4648": "^1.5.4",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1"
