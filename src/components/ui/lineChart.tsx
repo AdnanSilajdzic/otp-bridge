@@ -80,12 +80,7 @@ export function ChartLineLabel({ data }: PropsTypes) {
                             type="natural"
                             stroke="var(--color-value)"
                             strokeWidth={2}
-                            dot={{
-                                fill: "var(--color-value)",
-                            }}
-                            activeDot={{
-                                r: 6,
-                            }}
+                            dot={false}
                         />
                     </LineChart>
                 </ChartContainer>
