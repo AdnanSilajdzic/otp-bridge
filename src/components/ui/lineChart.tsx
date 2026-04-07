@@ -1,6 +1,6 @@
 "use client"
 
-import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, XAxis, YAxis } from "recharts"
 
 import {
     Card,
@@ -59,6 +59,12 @@ export function ChartLineLabel({ data }: PropsTypes) {
                         }}
                     >
                         <CartesianGrid vertical={false} />
+                        <YAxis
+                            tickLine={false}
+                            axisLine={false}
+                            tickMargin={8}
+                            domain={["dataMin", "dataMax"]}
+                        />
                         <XAxis
                             dataKey="date"
                             tickLine={false}
@@ -74,20 +80,8 @@ export function ChartLineLabel({ data }: PropsTypes) {
                             type="natural"
                             stroke="var(--color-value)"
                             strokeWidth={2}
-                            dot={{
-                                fill: "var(--color-value)",
-                            }}
-                            activeDot={{
-                                r: 6,
-                            }}
-                        >
-                            <LabelList
-                                position="top"
-                                offset={12}
-                                className="fill-foreground"
-                                fontSize={12}
-                            />
-                        </Line>
+                            dot={false}
+                        />
                     </LineChart>
                 </ChartContainer>
             </CardContent>
