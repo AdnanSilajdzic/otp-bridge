@@ -33,7 +33,7 @@ export default function GuidePage() {
 
     return (
         <div className="flex flex-col items-center justify-center py-6 px-3 bg-muted min-h-screen">
-            <h1 className="text-2xl sm:text-3xl mb-2 font-bold text-center">OTP Codes migrated over time</h1>
+            <h1 className="text-2xl sm:text-3xl mb-2 font-bold text-center">OTP accounts converted over time</h1>
             <div className="px-3 py-2 w-full max-w-4xl mb-2">
                 {
                     history ?
@@ -56,7 +56,7 @@ export default function GuidePage() {
                                     </svg>
                                 </div>
                                 <p className="text-sm font-medium text-muted-foreground">No data available yet</p>
-                                <p className="text-xs text-muted-foreground/70 mt-1">History will appear here once codes are migrated.</p>
+                                <p className="text-xs text-muted-foreground/70 mt-1">History will appear here once accounts are converted.</p>
                             </CardContent>
                         </Card>
                         : null

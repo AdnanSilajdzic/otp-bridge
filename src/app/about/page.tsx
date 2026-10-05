@@ -3,15 +3,15 @@ import Link from "next/link";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About OTP Bridge - Privacy-Focused 2FA Migration Tool",
+  title: "About OTP Bridge - OTP Format Converter",
   description:
-    "Learn about OTP Bridge's mission to help users liberate their 2FA codes from proprietary formats. Open source, privacy-focused, and works entirely in your browser.",
+    "Learn how OTP Bridge converts supported OTP exports into standard TOTP QR codes. Open source, with OTP processing in your browser.",
   keywords:
-    "otp bridge about, 2fa migration privacy, open source authenticator, degoogling security",
+    "otp bridge about, otp format conversion, totp qr codes, authenticator compatibility, open source",
   openGraph: {
-    title: "About OTP Bridge - Privacy-Focused 2FA Migration",
+    title: "About OTP Bridge - OTP Format Converter",
     description:
-      "Learn about our mission to help users liberate their 2FA codes from proprietary formats.",
+      "Learn how OTP Bridge helps you use supported OTP exports with compatible authenticator apps.",
   },
 };
 import {
@@ -49,8 +49,8 @@ export default function AboutPage() {
             About OTP Bridge
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            A privacy focused tool to liberate your 2FA codes from proprietary
-            formats
+            A browser-based tool for converting OTP exports into standard QR
+            codes for compatible authenticator apps
           </p>
         </div>
 
@@ -59,13 +59,13 @@ export default function AboutPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Shield className="h-5 w-5" />
-                Privacy First
+                Local Processing
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                All processing happens directly in your browser. Your 2FA codes
-                never leave your device.
+                OTP decoding and QR code generation happen directly in your
+                browser. Your account secrets are processed on your device.
               </p>
             </CardContent>
           </Card>
@@ -81,7 +81,7 @@ export default function AboutPage() {
               <p className="text-muted-foreground">
                 The code is completely free and open source. You can review and
                 contribute to the project on GitHub. Feel free to run the
-                project localy as well.
+                project locally as well.
               </p>
             </CardContent>
           </Card>
@@ -90,13 +90,13 @@ export default function AboutPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Globe className="h-5 w-5" />
-                Universal Compatibility
+                Format Compatibility
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Generate standard QR codes that work with any authenticator app,
-                giving you the freedom to choose your preferred 2FA solution.
+                Generate QR codes in the standard TOTP format for authenticator
+                apps that support your account settings.
               </p>
             </CardContent>
           </Card>
@@ -105,14 +105,13 @@ export default function AboutPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Code className="h-5 w-5" />
-                Convenenience
+                Flexible Input
               </CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground">
-                Import the codes into this app using either your google OTP
-                migration url, scanning a QR code, or uploading an image of the
-                migration QR code.
+                Provide a supported OTP export by pasting its URL, scanning a QR
+                code, or uploading an image of the export QR code.
               </p>
             </CardContent>
           </Card>
@@ -124,7 +123,7 @@ export default function AboutPage() {
           <CardHeader>
             <CardTitle>How It Works</CardTitle>
             <CardDescription>
-              Simple steps to migrate your 2FA codes
+              Simple steps to convert your OTP export
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -160,10 +159,10 @@ export default function AboutPage() {
                 3
               </div>
               <div>
-                <h4 className="font-medium">Import to Any Authenticator</h4>
+                <h4 className="font-medium">Import to a Compatible Authenticator</h4>
                 <p className="text-sm text-muted-foreground">
                   Scan the generated OTP Bridge QR codes with your preferred
-                  authenticator app
+                  authenticator app that supports your account's TOTP settings
                 </p>
               </div>
             </div>
@@ -174,15 +173,14 @@ export default function AboutPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Heart className="h-5 w-5" />
-              The Mission
+              Project Purpose
             </CardTitle>
           </CardHeader>
           <CardContent>
             <p className="text-muted-foreground">
-              I believe in digital freedom and the right to control your own
-              data. This project exists to help users break free from vendor
-              lock-in and maintain access to their essential security tools
-              regardless of which services they choose to use.
+              Authenticator apps can use different export and import formats.
+              OTP Bridge helps connect these formats by converting supported OTP
+              exports into standard TOTP QR codes and readable account data.
             </p>
           </CardContent>
         </Card>

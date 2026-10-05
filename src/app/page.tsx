@@ -51,7 +51,7 @@ export default function Home() {
       result = await parser(urlString ?? url);
       if (result) {
         setError(null);
-        toast.success("2FA Codes successfully degoogled.");
+        toast.success("OTP accounts converted successfully.");
         updateCounter(result.length);
       }
       setDecoded(result);
@@ -73,7 +73,7 @@ export default function Home() {
           className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium bg-background hover:bg-muted transition-colors"
         >
           <ShieldCheck className="w-3.5 h-3.5" />
-          Privacy Respecting
+          Local Processing
         </Link>
         <a
           href="https://github.com/AdnanSilajdzic/otp-bridge"
@@ -90,8 +90,8 @@ export default function Home() {
         <div className="flex items-center justify-center gap-3">
           <QrCode className="min-w-7 min-h-7 text-primary" />
           <p className="text-center text-sm">
-            Input your Google Authenticator QR code to convert it into standard
-            QR codes that can be scanned with any 2FA app
+            Convert your OTP export QR code into standard TOTP QR codes for
+            compatible authenticator apps
           </p>
         </div>
       </Card>

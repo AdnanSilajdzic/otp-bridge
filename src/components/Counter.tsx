@@ -43,7 +43,7 @@ const Counter = () => {
                 <ChartLineIcon width={18} className="text-muted-foreground absolute right-0 -mr-6 cursor-pointer hover:text-white transition-all duration-300" />
               </Link>
             </div>
-            <p className="text-center text-lg">OTP codes degoogled so far</p>
+            <p className="text-center text-lg">OTP accounts converted so far</p>
           </Card>
         )
       )}
