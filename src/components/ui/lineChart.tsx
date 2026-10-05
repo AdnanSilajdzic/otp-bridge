@@ -19,7 +19,7 @@ import dayjs from "dayjs"
 
 const chartConfig = {
     value: {
-        label: "Codes",
+        label: "Accounts",
         color: "var(--chart-1)",
     },
 } satisfies ChartConfig
@@ -44,7 +44,7 @@ export function ChartLineLabel({ data }: PropsTypes) {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Total codes migrated over time</CardTitle>
+                <CardTitle>Total accounts converted over time</CardTitle>
                 <CardDescription>{firstDate} — {lastDate}</CardDescription>
             </CardHeader>
             <CardContent>

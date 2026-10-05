@@ -10,7 +10,7 @@ const structuredData = {
   "@type": "SoftwareApplication",
   name: "OTP Bridge",
   description:
-    "Browser-based tool to export and migrate 2FA codes from Google Authenticator to any authenticator app",
+    "Browser-based tool to convert supported OTP exports into standard TOTP QR codes for compatible authenticator apps",
   url: "https://otpbridge.org",
   applicationCategory: "SecurityApplication",
   operatingSystem: "Any",
@@ -20,12 +20,12 @@ const structuredData = {
     priceCurrency: "USD",
   },
   featureList: [
-    "Export Google Authenticator codes",
-    "Transfer 2FA accounts between apps",
-    "Browser-based processing",
-    "Privacy-focused (no server processing)",
+    "Decode supported OTP export data",
+    "Generate standard TOTP QR codes",
+    "Browser-based OTP processing",
+    "Display decoded account data as JSON",
     "Open source",
-    "Works with any authenticator app",
+    "Works with compatible TOTP authenticator apps",
   ],
   author: {
     "@type": "Organization",
@@ -46,25 +46,25 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   icons: { icon: "/favicon.svg" },
   title:
-    "OTP Bridge - Transfer Google Authenticator to Any App | 2FA Migration Tool",
+    "OTP Bridge - OTP Format Converter",
   description:
-    "Easily export and migrate 2FA codes from Google Authenticator to any authenticator app. Browser-based tool for transferring 2FA accounts without app installation. Privacy-focused & open source.",
+    "Convert supported OTP exports into standard TOTP QR codes for compatible authenticator apps. Open source, with OTP processing in your browser.",
   keywords:
-    "google authenticator export, transfer 2fa codes, migrate google authenticator, 2fa backup, degoogling 2fa, authenticator migration tool",
+    "otp format converter, otp export, totp qr codes, authenticator compatibility, 2fa account transfer",
   authors: [{ name: "Adnan Silajdzic" }],
   creator: "Adnan Silajdzic",
   publisher: "Adnan Silajdzic",
   robots: "index, follow",
   openGraph: {
-    title: "OTP Bridge - Transfer Google Authenticator to Any App",
+    title: "OTP Bridge - OTP Format Converter",
     description:
-      "Easily export and migrate 2FA codes from Google Authenticator to any authenticator app. Browser-based tool for transferring 2FA accounts.",
+      "Convert supported OTP exports into standard TOTP QR codes for compatible authenticator apps, with OTP processing in your browser.",
     url: "https://otpbridge.org",
     siteName: "OTP Bridge",
     images: [
       {
         url: "https://otpbridge.org/og-image.png",
-        alt: "OTP Bridge - 2FA Migration Tool",
+        alt: "OTP Bridge - OTP Format Converter",
       },
     ],
     locale: "en_US",
@@ -72,9 +72,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "OTP Bridge - Transfer Google Authenticator to Any App",
+    title: "OTP Bridge - OTP Format Converter",
     description:
-      "Easily export and migrate 2FA codes from Google Authenticator to any authenticator app. Browser-based tool for transferring 2FA accounts.",
+      "Convert supported OTP exports into standard TOTP QR codes for compatible authenticator apps, with OTP processing in your browser.",
     images: ["https://otpbridge.org/twitter-image.png"],
   },
 };

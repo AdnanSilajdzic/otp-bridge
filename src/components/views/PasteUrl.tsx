@@ -13,7 +13,7 @@ const PasteUrl = (props: propsTypes) => {
   return (
     <div className="flex flex-col gap-3">
       <Label htmlFor="url" className="mb-2">
-        Enter your Google OTP migration url
+        Enter your OTP export URL
       </Label>
       <Input
         id="url"
@@ -27,7 +27,7 @@ const PasteUrl = (props: propsTypes) => {
         size={"lg"}
         onClick={() => props.handleDecode()}
       >
-        Degoogle
+        Convert
       </Button>
     </div>
   );
