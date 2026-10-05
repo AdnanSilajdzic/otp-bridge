@@ -1,33 +1,31 @@
-# OTP BRIDGE - DEGOOGLE YOUR 2FA CODES
+# OTP Bridge — OTP Format Converter
 
-A web application that helps you extract the secret key to your 2FA codes from Google Authenticator and migrate them to any other authenticator app.
+A browser-based tool that decodes Protocol Buffer–encoded OTP exports into standard `otpauth://` URIs and QR codes for use with compatible authenticator applications.
 
-Visit the live application at [otpbridge.org](https://otpbridge.org)
+Visit the live application at [otpbridge.org](https://otpbridge.org).
 
 ## How to Use
 
-This application allows you to extract your 2FA codes from Google Authenticator in two ways:
+Provide an OTP export in the supported `otpauth-migration://offline?data=...` format in either of two ways:
 
-1. **Scan QR Code**: Upload an image of your Google Authenticator migration QR code
-2. **Paste URL**: Directly paste the migration URL from Google Authenticator
+1. **Scan QR Code**: Upload an image containing the encoded OTP export.
+2. **Paste URL**: Paste the export URI directly.
 
 Once processed, the application will:
 
-- Extract all your 2FA accounts from the migration data
-- Generate individual QR codes for each account
-- Display the data in JSON format for manual import
-- Allow you to scan these new QR codes with any authenticator app of your choice
+- Decode the OTP account data from the Protocol Buffer payload.
+- Generate individual QR codes using the standard `otpauth://totp/` URI format.
+- Display the decoded data in JSON format for inspection or manual import.
+- Let you scan the generated QR codes with an authenticator app that supports the account’s TOTP settings.
 
-## Why This Software Was Created
+## Format Compatibility
 
-Many users want to move away from Google's ecosystem but find it difficult to migrate their 2FA codes. Google Authenticator doesn't provide an easy way to export codes in a standard format that other authenticator apps can import.
+Authenticator applications can use different formats for exporting and importing account data. OTP Bridge makes supported OTP exports easier to use across applications by:
 
-This tool solves that problem by:
-
-- Decoding Google's proprietary migration format
-- Converting it to standard QR codes that work with any authenticator app
-- Providing a simple, privacy-focused way to migrate your 2FA codes
-- Working entirely in your browser - no data is sent to any server
+- Decoding Protocol Buffer–encoded account data.
+- Converting TOTP account details into widely supported QR codes.
+- Making account secrets and settings available in a readable format.
+- Performing OTP decoding and QR code generation in your browser.
 
 ## How to Run Locally
 
@@ -48,12 +46,10 @@ npm run dev
 
 The application will be available in your browser at http://localhost:3000. The core functionality (decoding QR codes and extracting 2FA secrets) works fully offline with no configuration needed.
 
-That's it.
-
 Running locally will never connect to any hosted instance of OTP Bridge. Some features require valid Cloudflare credentials in your `.env` and `wrangler.jsonc` file to function:
 
-- **Counter component** — uses Cloudflare KV to track total migrations
+- **Counter component** — uses Cloudflare KV to track total conversions
 - **Cloudflare Turnstile** — bot protection on API endpoints
-- **History page** — uses Cloudflare D1 database to display migration stats over time
+- **History page** — uses Cloudflare D1 database to display conversion statistics over time
 
-Without these credentials, the above features will simply not work, but QR code decoding and migration will function perfectly.
+Without these credentials, the above features will simply not work, but QR code decoding and format conversion will function normally.
